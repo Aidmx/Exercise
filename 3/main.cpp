@@ -5,7 +5,8 @@
 #include <iostream>
 #include <ctime>
 
-#include "3.6.h"
+#include "3_2.h"
+#include "3_6.h"
 
 
 using namespace std;
