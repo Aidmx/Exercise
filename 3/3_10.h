@@ -20,7 +20,7 @@ namespace allen
 			objects = new Object[theCapacity];
 		}
 
-		Vector(const Vector& rhs) : theSize{rhs.theSize},
+		Vector(const Vector& rhs) : theSize{ rhs.theSize },
 			theCapacity{ rhs.theCapacity },
 			objects{ nullptr }
 		{
@@ -52,13 +52,95 @@ namespace allen
 			return *this;
 		}
 
-		Vector& operator= (Vector && rhs)
+		Vector& operator= (Vector&& rhs)
 		{
 			std::swap(theSize, rhs.theSize);
 			std::swap(theCapacity, rhs.theCapacity);
 			std::swap(objects, rhs.objects);
 			return *this;
 		}
+
+		Object& operator[](int index)
+		{
+			return objects[index];
+		}
+
+		const Object& operator[](int index) const
+		{
+			return objects[index];
+		}
+
+		void resize(const int& pNewSize)
+		{
+			if (pNewSize > size())
+			{
+				reserve(pNewSize * 2);
+			}
+			theSize = pNewSize;
+		}
+
+
+		void reserve(const int& pNewCapacity)
+		{
+			if (pNewCapacity < size())
+				return;
+
+			Object* newArray = new Object[pNewCapacity];
+			for (int i = 0; i < size(); i++)
+			{
+				newArray[i] = std::move(objects[i]);
+			}
+			theCapacity = pNewCapacity;
+			std::swap(objects, newArray);
+			delete[] newArray;
+		}
+
+		const int size() const
+		{
+			return theSize;
+		}
+
+		const bool empty() const
+		{
+			return size() == 0;
+		}
+
+		void push_back(const Object& pX)
+		{
+			if (size() == theCapacity)
+				reserve(2 * theCapacity + 1);
+
+			objects[theSize++] = pX;
+		}
+
+		void pop_back()
+		{
+
+		}
+
+		//修改这一部分
+		typedef Object* iterator;
+		typedef const Object* const_iterator;
+
+		iterator begin()
+		{
+			return &objects[0];
+		}
+
+		const_iterator begin() const 
+		{
+			return &objects[0];
+		}
+		iterator end()
+		{
+			return &objects[size()];
+		}
+
+		const_iterator end() const
+		{
+			return &objects[size()];
+		}
+
 		static const int SPARE_CAPACITY = 16;
 	private:
 		int theSize;
