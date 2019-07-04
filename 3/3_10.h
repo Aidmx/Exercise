@@ -3,7 +3,81 @@
 #include <algorithm>
 
 namespace allen
-{
+{ 
+	template<typename Object>
+	class Vector;
+
+	template<typename Object>
+	class VectorIterator
+	{
+	public:
+		//explicit VectorIterator() :mPtr{nullptr}
+		//{
+		//}
+		//explicit VectorIterator(const Object& pObeject) :mPtr{ &pObeject }
+		//{ 
+		//}	
+		VectorIterator() :mPtr(nullptr)
+		{
+
+		}
+
+		explicit VectorIterator(Object* pCurrent)
+			:mPtr(pCurrent)
+		{
+
+		}
+
+		void operator=(Object* pObject) const
+		{
+			mPtr = pObject;
+		}
+		void operator=(VectorIterator<Object>* pOther) const
+		{
+			mPtr = pOther->mPtr;
+		}
+		Object& operator*() const
+		{
+			return *mPtr;
+		}
+
+		bool operator== (const VectorIterator& pOther) const
+		{
+			return mPtr == pOther.mPtr;
+		}
+
+		bool operator!= (const VectorIterator& pOther) const
+		{
+			return !(*this == pOther);
+		}
+
+		VectorIterator& operator++() {
+			mPtr++;
+			return *this;
+		}
+		//后++
+		VectorIterator& operator++(int) {
+			VectorIterator old = *this;
+			++(*this);
+			return old;
+		}
+		//VectorIterator& operator--() {
+		//	--*(Object*)mPtr;
+		//	return *mPtr;
+		//}
+	protected:
+		Object* mPtr;
+		//Vector<Object>* mVec;
+
+	private:
+		Object* operator->() const
+		{
+			return mPtr;
+		}
+
+	};
+
+
 	template<typename Object>
 	class Vector
 	{
@@ -60,14 +134,25 @@ namespace allen
 			return *this;
 		}
 
+		bool  valididnex(const int& index)
+		{
+			return ((index >= 0) && (index < theSize));
+		}
+
 		Object& operator[](int index)
 		{
-			return objects[index];
+			if (valididnex(index))
+				return objects[index];
+			else
+				throw std::exception("out of range.");
 		}
 
 		const Object& operator[](int index) const
 		{
-			return objects[index];
+			if (valididnex(index))
+				return objects[index];
+			else
+				throw std::exception ("out of range.");
 		}
 
 		void resize(const int& pNewSize)
@@ -95,6 +180,7 @@ namespace allen
 			delete[] newArray;
 		}
 
+
 		const int size() const
 		{
 			return theSize;
@@ -115,31 +201,49 @@ namespace allen
 
 		void pop_back()
 		{
-
+			theSize--;
 		}
 
 		//修改这一部分
-		typedef Object* iterator;
-		typedef const Object* const_iterator;
+		//typedef Object* VectorIterator;
+		//typedef const Object* const_VectorIterator;
 
-		iterator begin()
-		{
-			return &objects[0];
-		}
+		//VectorIterator begin()
+		//{
+		//	return &objects[0];
+		//}
 
-		const_iterator begin() const 
-		{
-			return &objects[0];
-		}
-		iterator end()
-		{
-			return &objects[size()];
-		}
+		//const_VectorIterator begin() const
+		//{
+		//	return &objects[0];
+		//}
+		//VectorIterator end()
+		//{
+		//	return &objects[size() - 1 ];
+		//}
 
-		const_iterator end() const
+		//const_VectorIterator end() const
+		//{
+		//	return &objects[size() - 1];
+		//}
+
+
+		VectorIterator<Object> begin()
 		{
-			return &objects[size()];
+			return VectorIterator<Object>(&objects[0]);
 		}
+		//const_iterator begin() const
+		//{
+		//	return const_iterator(*this, &objects[0]);
+		//}
+		VectorIterator<Object> end()
+		{
+			return VectorIterator<Object>(&objects[size()]);
+		}
+		//const_iterator end() const
+		//{
+		//	return const_iterator(*this, &objects[size()]);
+		//}
 
 		static const int SPARE_CAPACITY = 16;
 	private:
@@ -147,91 +251,6 @@ namespace allen
 		int theCapacity;
 		Object* objects;
 	};
-
-	
-	template<typename Object>
-	class Iterator
-	{
-		explicit Iterator() :mPtr{nullptr}
-		{
-		}
-		explicit Iterator(const Object& pObeject) :mPtr{ &pObeject }
-		{ 
-		}
-		/*
-		_Vector_iterator() { // construct with null vector pointer
-		}
-	
-		_Vector_iterator(pointer _Parg, const _Container_base* _Pvector)
-			: _Mybase(_Parg, _Pvector) { // construct with pointer _Parg
-		}
-		_NODISCARD reference operator*() const { // return designated object
-			return const_cast<reference>(_Mybase::operator*());
-		}
-	
-		_NODISCARD pointer operator->() const { // return pointer to class object
-			return _Const_cast(_Mybase::operator->());
-		}
-	
-		_Vector_iterator& operator++() { // preincrement
-			++* (_Mybase*)this;
-			return *this;
-		}
-	
-		_Vector_iterator operator++(int) { // postincrement
-			_Vector_iterator _Tmp = *this;
-			++* this;
-			return _Tmp;
-		}
-	
-		_Vector_iterator& operator--() { // predecrement
-			--* (_Mybase*)this;
-			return *this;
-		}
-	
-		_Vector_iterator operator--(int) { // postdecrement
-			_Vector_iterator _Tmp = *this;
-			--* this;
-			return _Tmp;
-		}
-	
-		_Vector_iterator& operator+=(const difference_type _Off) { // increment by integer
-			*(_Mybase*)this += _Off;
-			return *this;
-		}
-	
-		_NODISCARD _Vector_iterator operator+(const difference_type _Off) const { // return this + integer
-			_Vector_iterator _Tmp = *this;
-			return _Tmp += _Off;
-		}
-	
-		_Vector_iterator& operator-=(const difference_type _Off) { // decrement by integer
-			return *this += -_Off;
-		}
-	
-		_NODISCARD _Vector_iterator operator-(const difference_type _Off) const { // return this - integer
-			_Vector_iterator _Tmp = *this;
-			return _Tmp -= _Off;
-		}
-	
-		_NODISCARD difference_type operator-(const _Mybase& _Right) const { // return difference of iterators
-			return *(_Mybase*)this - _Right;
-		}
-	
-		_NODISCARD reference operator[](const difference_type _Off) const { // subscript
-			return *(*this + _Off);
-		}
-	
-		using _Prevent_inheriting_unwrap = _Vector_iterator;
-	
-		_NODISCARD pointer _Unwrapped() const {
-			return this->_Ptr;
-		}*/
-	
-	private:
-		Object* mPtr;
-	};
-
 
 
 }
