@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <algorithm>
 
@@ -55,7 +55,7 @@ namespace allen
 			mPtr++;
 			return *this;
 		}
-		//ºó++
+		//ï¿½ï¿½++
 		VectorIterator& operator++(int) {
 			VectorIterator old = *this;
 			++(*this);
@@ -204,7 +204,7 @@ namespace allen
 			theSize--;
 		}
 
-		//ÐÞ¸ÄÕâÒ»²¿·Ö
+		//ï¿½Þ¸ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 		//typedef Object* VectorIterator;
 		//typedef const Object* const_VectorIterator;
 

@@ -1,12 +1,9 @@
-
+ï»¿
 //add by allen
 //3.6 answer
 
 #include <iostream>
 #include <ctime>
-#include<stack>
-#include<vector>
-#include<string>
 
 #include "3_2.h"
 #include "3_6.h"
@@ -32,7 +29,7 @@ int main(int arg, char* argv[])
 	//end = clock();
 	//std::cout << "Correct time used:" << ((double)(end - start) / CLOCKS_PER_SEC) << std::endl;
 
-	//3.22 ºó×º±í´ïÊ½
+	//3.22 åŽç¼€è¡¨è¾¾å¼
 	string expression = "6.1 1.2 + /1 =";
 	PostfixExpression test; 
 	test.DoCalculate(expression);
