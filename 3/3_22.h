@@ -55,7 +55,6 @@ public:
 			break;
 			case '/':
 			{
-				//��ջ 
 				a = stac.top();
 				stac.pop();
 				b = stac.top();

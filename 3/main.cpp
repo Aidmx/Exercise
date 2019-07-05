@@ -8,6 +8,8 @@
 #include "3_2.h"
 #include "3_6.h"
 #include "3_22.h"
+#include "3_26.h"
+#include "3_30.h"
 
 
 using namespace std;
@@ -30,10 +32,38 @@ int main(int arg, char* argv[])
 	//std::cout << "Correct time used:" << ((double)(end - start) / CLOCKS_PER_SEC) << std::endl;
 
 	//3.22 后缀表达式
-	string expression = "6.1 1.2 + /1 =";
-	PostfixExpression test; 
-	test.DoCalculate(expression);
-	std::cout << expression << " ;result is = " << test.mResult << std::endl;
+	//string expression = "6.1 1.2 + /1 =";
+	//PostfixExpression test; 
+	//test.DoCalculate(expression);
+	//std::cout << expression << " ;result is = " << test.mResult << std::endl;
+
+
+	//3.26
+	//CustomStack stack(10);
+	//for (int i = 0; i < 20;++i) 
+	//	stack.push1(i);
+
+	//for (int i = 0; i < 20; ++i)
+	//{
+	//	cout << stack.top1() << endl;
+	//	stack.pop1();
+	//}
+
+	//3.30
+	SelfAdjustTable table;
+	for (int k = 0; k < 30 ; k++)
+	{
+		table.ListPushFront(k);
+		table.VectorPushFront(k);
+	}
+
+	for (int k = 30; k >= 0; k--)
+	{
+		table.ListFind(k);
+		table.VectorFind(k);
+	}
+
+
 
 	return 0;
 }
