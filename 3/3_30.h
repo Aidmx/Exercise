@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include <list>
 #include <vector>
 
 
 //self-adjusting list
-//Ç°¶Ë²åÈë£¬
-//find µ±Ò»¸öÔªËØ±»find ÔòÒÆµ½±íµÄÇ°¶Ëµ«²»¸Ä±äÆäÓàµÄÏîµÄÏà¶ÔË³Ğò
+//å‰ç«¯æ’å…¥ï¼Œ
+//find å½“ä¸€ä¸ªå…ƒç´ è¢«find åˆ™ç§»åˆ°è¡¨çš„å‰ç«¯ä½†ä¸æ”¹å˜å…¶ä½™çš„é¡¹çš„ç›¸å¯¹é¡ºåº
 
 class SelfAdjustTable
 {
