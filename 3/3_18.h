@@ -5,10 +5,10 @@
 class Custom
 {
 public:
-	Custom()
-	{
-		mList.erase();
-	}
+	//Custom()
+	//{
+	//	mList.erase();
+	//}
 
 
 
