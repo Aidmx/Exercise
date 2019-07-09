@@ -5,6 +5,7 @@
 #include <iostream>
 #include <ctime>
 #include "4_18.h"
+#include "BinarySearchTree.h"
 
 using namespace std;
 
