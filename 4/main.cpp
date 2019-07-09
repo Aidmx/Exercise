@@ -35,5 +35,7 @@ int main(int arg, char* argv[])
 	//test.DoCalculate(expression);
 	//std::cout << expression << " ;result is = " << test.mResult << std::endl;
 	//4.2 4.6 4.10 4.14 4.18 4.22 4.26 4.30 4.34,4.38 4.42 4.46 4.50
+
+
 	return 0;
 }
