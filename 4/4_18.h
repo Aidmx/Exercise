@@ -27,9 +27,8 @@ int Fib2(int pHeight)
             
         }else if(h == 1)
         {
-            result1 = 0;
-            result2 = 1;
-            result = 1;
+            result2 = 2;
+            result = 2;
         }else
         {
             result = result2 + result1 + 1;
