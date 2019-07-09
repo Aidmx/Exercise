@@ -1,18 +1,18 @@
-#pragma once
-
+#ifndef __4_18_H
+#define __4_18_H
 
 int Fib1(int pHeight)
 {
     if (pHeight == 0)
     {
-       return 0;
-    }  
-    else  if (pHeight == 1)
-    {
-       return 2;
+        return 0;
     }
-    
-    return Fib1(pHeight-1) + Fib1(pHeight-2) + 1;
+    else if (pHeight == 1)
+    {
+        return 2;
+    }
+
+    return Fib1(pHeight - 1) + Fib1(pHeight - 2) + 1;
 }
 
 int Fib2(int pHeight)
@@ -24,12 +24,13 @@ int Fib2(int pHeight)
     {
         if (h == 0)
         {
-            
-        }else if(h == 1)
+        }
+        else if (h == 1)
         {
             result2 = 2;
             result = 2;
-        }else
+        }
+        else
         {
             result = result2 + result1 + 1;
             result1 = result2;
@@ -38,3 +39,4 @@ int Fib2(int pHeight)
     }
     return result;
 }
+#endif
