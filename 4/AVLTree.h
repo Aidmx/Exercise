@@ -1,5 +1,5 @@
-﻿#ifndef __BINARY_SEARCH_TREE_H__
-#define __BINARY_SEARCH_TREE_H__
+﻿#ifndef __AVL_TREE_H__
+#define __AVL_TREE_H__
 
 #include<iostream>
 
