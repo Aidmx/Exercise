@@ -16,8 +16,14 @@ public:
         root = clone(rhs.root);
     }
 
-    AvlTree(AvlTree &&rhs);
-    ~AvlTree();
+    AvlTree(AvlTree &&rhs) :root{nullptr}
+    {
+        root = clone(rhs.root);
+    }
+    ~AvlTree()
+    {
+        makeEmpty(root);
+    }
 
     const Comparable &findMin() const;
     const Comparable &findMax() const;
@@ -27,7 +33,6 @@ public:
     }
 
     bool isEmpty() const;
-    void printTree(std::ostream &out = std::cout) const;
 
     void insert(const Comparable &x)
     {
@@ -45,8 +50,8 @@ public:
     AvlTree &operator=(const AvlTree &rhs);
     AvlTree &operator=(AvlTree &&rhs);
 
-private:
-static const int ALLOW_IMBALANCE = 1;
+public:
+    static const int ALLOW_IMBALANCE = 1;
     typedef struct AvlNode
     {
         Comparable element;
@@ -55,18 +60,64 @@ static const int ALLOW_IMBALANCE = 1;
         int height;
 
         AvlNode(const Comparable &theElement, AvlNode *pleft, AvlNode *pRight, int pHeight = 0)
-            : element{theElement}, left{pleft}, right{pRight},height(pHeight)
+            : element{theElement}, left{pleft}, right{pRight}, height(pHeight)
         {
         }
 
         AvlNode(Comparable &&theElement, AvlNode *pleft, AvlNode *pRight, int pHeight = 0)
-            : element{std::move(theElement)}, left{pleft}, right{pRight},height(pHeight)
+            : element{std::move(theElement)}, left{pleft}, right{pRight}, height(pHeight)
         {
         }
 
     } AvlNode;
 
     AvlNode *root;
+
+    void printNode(AvlNode *pNode) const
+    {
+        if (pNode == nullptr)
+        {
+            return;
+        }
+        std::cout << pNode->element << std::endl;
+    }
+
+    //先序
+    void Preorder(AvlNode *pNode) const
+    {
+        if (pNode == nullptr)
+        {
+            return;
+        }
+        
+        printNode(pNode);
+        Preorder(pNode->left);
+        Preorder(pNode->right);
+    }
+    //后序
+    void Postorder(AvlNode *pNode) const
+    {
+        if (pNode == nullptr)
+        {
+            return;
+        }
+        
+        Postorder(pNode->left);
+        Postorder(pNode->right);
+        printNode(pNode);
+    }
+    //中序
+    void Inorder(AvlNode *pNode) const
+    {
+        if (pNode == nullptr)
+        {
+            return;
+        }
+        
+        Inorder(pNode->left);
+        printNode(pNode);
+        Inorder(pNode->right);
+    }
 
     void insert(const Comparable &x, AvlNode *&t)
     {
@@ -214,7 +265,7 @@ static const int ALLOW_IMBALANCE = 1;
         }
     }
 
-    void height(AvlNode* t) const
+    int height(AvlNode* t) const
     {
           return (t == nullptr ) ? -1 : t->height;
     }
@@ -224,8 +275,8 @@ static const int ALLOW_IMBALANCE = 1;
         AvlNode* k1 = k2->right;
         k2->right = k1->left;
         k1->left = k2;
-        k2->height = max(height(k2->left), height(k2->right)) +1;
-        k1->height = max(height(k1->right), k2->height) +1;
+        k2->height =  std::max(height(k2->left), height(k2->right)) +1;
+        k1->height =  std::max(height(k1->right), k2->height) +1;
         k2 = k1;
     }
 
@@ -234,8 +285,8 @@ static const int ALLOW_IMBALANCE = 1;
         AvlNode* k1 = k2->left;
         k2->left = k1->right;
         k1->right = k2;
-        k2->height = max(height(k2->left), height(k2->right)) +1;
-        k1->height = max(height(k1->left), k2->height) +1;
+        k2->height =  std::max(height(k2->left), height(k2->right)) +1;
+        k1->height =  std::max(height(k1->left), k2->height) +1;
         k2 = k1;
     }
     void doubleWithLeftChild(AvlNode *&k3)
@@ -248,9 +299,36 @@ static const int ALLOW_IMBALANCE = 1;
         rotateWithLeftChild(k3->left);
         rotateWithRightChild(k3);
     }
+// 4_26
+    AvlNode *doubleRotateWithLeft(AvlNode *k3)
+    {
+        AvlNode *k1 = k3->left;
+        AvlNode *k2 = k1->right;
+        k1->right = k2->left;
+        k3->left = k2->right;
+        k2->left = k1;
+        k2->right = k3;
+        k1->height =  std::max(height(k1->left), height(k1->right)) + 1;
+        k3->height =  std::max(height(k3->left), height(k3->right)) + 1;
+        k2->height =  std::max(height(k2->left), height(k2->right)) + 1;
+        return k2;
+    }
 
+    AvlNode *doubleRotateWithRight(AvlNode *k1)
+    {
+        AvlNode *k3 = k1->right;
+        AvlNode *k2 = k3->left;
+        k1->right = k2->left;
+        k3->left = k2->right;
+        k2->left = k1;
+        k2->right = k3;
+        k1->height = std::max(height(k1->left), height(k1->right)) + 1;
+        k3->height = std::max(height(k3->left), height(k3->right)) + 1;
+        k2->height = std::max(height(k2->left), height(k2->right)) + 1;
+        return k2;
+    }
 
-    void balance(AvlNode* t)
+    void balance(AvlNode *t)
     {
         if (t == nullptr)
         {
@@ -270,7 +348,7 @@ static const int ALLOW_IMBALANCE = 1;
                 doubleWithLeftChild(t);
             }
         }
-        else
+        else if ((height(t->right)-height(t->left)) > ALLOW_IMBALANCE)
         {
             if (height(t->right->right) >= height(t->right->left))
             {
@@ -282,7 +360,7 @@ static const int ALLOW_IMBALANCE = 1;
                 doubleWithRightChild(t);
             }
         }
-        t->height = max(height(t->left), height(t->right)) + 1;
+        t->height =  std::max(height(t->left), height(t->right)) + 1;
     }
 
     //4_22

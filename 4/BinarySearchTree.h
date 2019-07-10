@@ -16,8 +16,14 @@ public:
         root = clone(rhs.root);
     }
 
-    BinarySearchTree(BinarySearchTree &&rhs);
-    ~BinarySearchTree();
+    BinarySearchTree(BinarySearchTree &&rhs)
+    {
+        root = clone(rhs.root);
+    }
+    ~BinarySearchTree()
+    {
+        makeEmpty(root);
+    }
 
     const Comparable &findMin() const;
     const Comparable &findMax() const;
@@ -27,8 +33,6 @@ public:
     }
 
     bool isEmpty() const;
-    void printTree(std::ostream &out = std::cout) const;
-
     void insert(const Comparable &x)
     {
         insert(x, root);
@@ -45,7 +49,7 @@ public:
     BinarySearchTree &operator=(const BinarySearchTree &rhs);
     BinarySearchTree &operator=(BinarySearchTree &&rhs);
 
-private:
+public:
     typedef struct BinaryNode
     {
         Comparable element;
@@ -64,6 +68,52 @@ private:
     } BinaryNode;
 
     BinaryNode *root;
+
+    void printNode(BinaryNode *pNode) const
+    {
+        if (pNode == nullptr)
+        {
+            return;
+        }
+        std::cout << pNode->element << std::endl;
+    }
+    
+    //先序
+    void Preorder(BinaryNode *pNode) const
+    {
+        if (pNode == nullptr)
+        {
+            return;
+        }
+        
+        printNode(pNode);
+        Preorder(pNode->left);
+        Preorder(pNode->right);
+    }
+    //后序
+    void Postorder(BinaryNode *pNode) const
+    {
+        if (pNode == nullptr)
+        {
+            return;
+        }
+        
+        Postorder(pNode->left);
+        Postorder(pNode->right);
+        printNode(pNode);
+    }
+    //中序
+    void Inorder(BinaryNode *pNode) const
+    {
+        if (pNode == nullptr)
+        {
+            return;
+        }
+        
+        Inorder(pNode->left);
+        printNode(pNode);
+        Inorder(pNode->right);
+    }
 
     void insert(const Comparable &x, BinaryNode *&t)
     {
