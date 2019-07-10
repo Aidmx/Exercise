@@ -249,6 +249,7 @@ static const int ALLOW_IMBALANCE = 1;
         rotateWithRightChild(k3);
     }
 
+
     void balance(AvlNode* t)
     {
         if (t == nullptr)
@@ -283,6 +284,10 @@ static const int ALLOW_IMBALANCE = 1;
         }
         t->height = max(height(t->left), height(t->right)) + 1;
     }
+
+    //4_22
+    
+
 };
 
 #endif
