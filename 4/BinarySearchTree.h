@@ -1,4 +1,4 @@
-#ifndef __BINARY_SEARCH_TREE_H__
+﻿#ifndef __BINARY_SEARCH_TREE_H__
 #define __BINARY_SEARCH_TREE_H__
 
 #include<iostream>
@@ -7,8 +7,15 @@ template <typename Comparable>
 class BinarySearchTree
 {
 public:
-    BinarySearchTree();
-    BinarySearchTree(const BinarySearchTree &rhs);
+    BinarySearchTree() : root{nullptr}
+    {
+    }
+
+    BinarySearchTree(const BinarySearchTree &rhs) :root{nullptr}
+    {
+        root = clone(rhs.root);
+    }
+
     BinarySearchTree(BinarySearchTree &&rhs);
     ~BinarySearchTree();
 
@@ -22,7 +29,6 @@ public:
     bool isEmpty() const;
     void printTree(std::ostream &out = std::cout) const;
 
-    void makeEmpty();
     void insert(const Comparable &x)
     {
         insert(x, root);
@@ -52,7 +58,7 @@ private:
         }
 
         BinaryNode(Comparable &&theElement, BinaryNode *pleft, BinaryNode *pRight)
-            : element{theElement}, left{pleft}, right{pRight}
+            : element{std::move(theElement)}, left{pleft}, right{pRight}
         {
         }
     } BinaryNode;
@@ -177,7 +183,29 @@ private:
             return true;
         }
     }
-    BinaryNode *clone(BinaryNode *t) const;
+
+    BinaryNode *clone(BinaryNode *t) const
+    {
+        if (t != nullptr)
+        {
+            return new BinaryNode(t->element, clone(t->left), clone(t->right));
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+
+    void makeEmpty(BinaryNode* t)
+    {
+        if (t != nullptr)
+        {
+            makeEmpty(t->left);
+            makeEmpty(t->right);
+            delete t;
+            t = nullptr;
+        }
+    }
 };
 
 #endif

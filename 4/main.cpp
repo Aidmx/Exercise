@@ -6,6 +6,7 @@
 #include <ctime>
 #include "4_18.h"
 #include "BinarySearchTree.h"
+#include "AVLTree.h"
 
 using namespace std;
 
@@ -32,8 +33,9 @@ int main(int arg, char* argv[])
 	//test.DoCalculate(expression);
 	//std::cout << expression << " ;result is = " << test.mResult << std::endl;
 	//4.2 4.6 4.10 4.14 4.18 4.22 4.26 4.30 4.34,4.38 4.42 4.46 4.50
-	cout<<Fib1(15)<<endl;
-	cout<<Fib2(15)<<endl;
+	// cout<<Fib1(15)<<endl;
+	// cout<<Fib2(15)<<endl;
+	BinarySearchTree<int> t();
 	
 	return 0;
 }
