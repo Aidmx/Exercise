@@ -40,6 +40,11 @@ public:
         return root == nullptr;
     }
 
+    void isomorphis_insert(const Comparable &x)
+    {
+        isomorphis_insert(x, root);
+    }
+
     void insert(const Comparable &x)
     {
         insert(x, root);
@@ -215,6 +220,20 @@ public:
         }
         //相同则什么都不做
     }
+ 
+    void isomorphis_insert(const Comparable &x, BinaryNode *&t)
+    {
+        if (t == nullptr)
+        {
+            t = new BinaryNode{x, nullptr, nullptr};
+        }else if(x > t->element)
+        {
+            isomorphis_insert(x, t->left);
+        }else if(x < t->element)
+        {
+            isomorphis_insert(x, t->right);
+        }
+    }
 
     void remove(const Comparable &x, BinaryNode *&t)
     {
@@ -327,12 +346,27 @@ public:
         }
     }
 
-
+public:
     //4_46
-    bool isomorphis()
+    static bool isomorphis(BinaryNode* a, BinaryNode* b)
     {
-        
+        if ((a==nullptr) && (b==nullptr))
+        {
+           return true;
+        }
+        if ((a==nullptr) || (b==nullptr))
+        {
+            return false;
+        }
+        if (a->element != b->element)
+        {
+            return false;
+        }
+
+        return (isomorphis(a->left, b->left) && isomorphis(a->right, b->right)) 
+            || (isomorphis(a->left, b->right) && isomorphis(a->right, b->left));
     }
+    //4_46
 };
 
 #endif

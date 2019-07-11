@@ -70,15 +70,23 @@ int main(int arg, char* argv[])
 	// tree.makeRandomBSTree(10,13);
 	// std::cout<<"Inorder"<<std::endl;
 	// tree.Inorder(tree.root);
-	std::vector<int> sx;
-	int a[] = {15,7,3,5,4,11,9,25,19,20,23,21,24};
-	const int mid = 15; 
-	BinarySearchTree<int> tree;
+	
+	int x[] = {15,7,3,5,4,11,9,25,19,20,23,21,24}; 
+	BinarySearchTree<int> a;
+	BinarySearchTree<int> b;
 	for (int i = 0; i < 13; i++)
 	{
-		tree.insert(a[i]);
+		a.insert(x[i]);
+		b.isomorphis_insert(x[i]);
 	}
+	if (BinarySearchTree<int>::isomorphis(a.root, b.root))
+	{
+		std::cout << "isomorphis is true" << std::endl;
+	}else
+	{
+		std::cout << "isomorphis is false"  << std::endl;
+	}
+	
 
-	tree.InorderCoord(tree.root, 1,1,true);
 	return 0;
 }
