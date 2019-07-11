@@ -1,7 +1,9 @@
-﻿#ifndef __BINARY_SEARCH_TREE_H__
-#define __BINARY_SEARCH_TREE_H__
+﻿#ifndef _BINARY_SEARCH_TREE_H_
+#define _BINARY_SEARCH_TREE_H_
 
 #include<iostream>
+#include <random>
+ 
 
 template <typename Comparable>
 class BinarySearchTree
@@ -20,6 +22,7 @@ public:
     {
         root = clone(rhs.root);
     }
+
     ~BinarySearchTree()
     {
         makeEmpty(root);
@@ -32,15 +35,21 @@ public:
         return contains(x, root);
     }
 
-    bool isEmpty() const;
+    bool isEmpty() const
+    {
+        return root == nullptr;
+    }
+
     void insert(const Comparable &x)
     {
         insert(x, root);
     }
+
     void insert(Comparable &&x)
     {
         insert(x, root);
     }
+
     void remove(const Comparable &x)
     {
         remove(x, root);
@@ -55,15 +64,21 @@ public:
         Comparable element;
         BinaryNode *left;
         BinaryNode *right;
+        int x;
+        int y;
 
         BinaryNode(const Comparable &theElement, BinaryNode *pleft, BinaryNode *pRight)
             : element{theElement}, left{pleft}, right{pRight}
         {
+            x = 0;
+            y = 0;
         }
 
         BinaryNode(Comparable &&theElement, BinaryNode *pleft, BinaryNode *pRight)
             : element{std::move(theElement)}, left{pleft}, right{pRight}
         {
+            x = 0;
+            y = 0;
         }
     } BinaryNode;
 
@@ -75,7 +90,7 @@ public:
         {
             return;
         }
-        std::cout << pNode->element << std::endl;
+        std::cout << pNode->element << ",(x, y)"<< pNode->x << pNode->y << std::endl;
     }
     
     //先序
@@ -114,6 +129,61 @@ public:
         printNode(pNode);
         Inorder(pNode->right);
     }
+    //4_38 
+    //a  //b
+    void InorderCoord(BinaryNode *pNode ,int x, int y, bool pleft)
+    {
+        if (pNode == nullptr)
+        {
+            return;
+        }
+        
+        InorderCoord(pNode->left,x - 1,  y - 1, true);  
+        if (pleft)
+        {
+            pNode->x = x - 1;
+        }
+        else
+        {
+            pNode->x = x + 1;
+        }
+        pNode->y = y - 1;
+        printNode(pNode);
+        InorderCoord(pNode->right, pNode->x,  pNode->y , false);
+    }
+    //b
+
+    //4_38  
+
+    Comparable randInt(Comparable lower, Comparable upper)
+    {
+        return (upper - lower ) / 2 + lower;
+    }
+ 
+ //4_34
+    BinaryNode* makeRandomTree(Comparable lower, Comparable upper)
+    {
+        BinaryNode* pNode = nullptr;
+        if (lower <= upper)
+        {
+            Comparable randomValue = randInt(lower, upper);
+            pNode = new BinaryNode(randomValue,
+                                   makeRandomTree(lower, randomValue - 1),
+                                   makeRandomTree(randomValue + 1, upper));
+        }
+        return pNode;
+    }
+     
+    void makeRandomBSTree(Comparable lower, Comparable upper)
+    {
+        if (upper <= lower)
+        {
+            return;
+        }
+        
+        root=makeRandomTree( lower, upper); 
+    }
+ //4_34
 
     void insert(const Comparable &x, BinaryNode *&t)
     {
@@ -128,7 +198,7 @@ public:
             insert(x, t->right);
         }
         //相同则什么都不做 
-    }
+    } 
     void insert(Comparable &&x, BinaryNode *&t)
     {
         if (t == nullptr)
@@ -255,6 +325,13 @@ public:
             delete t;
             t = nullptr;
         }
+    }
+
+
+    //4_46
+    bool isomorphis()
+    {
+        
     }
 };
 

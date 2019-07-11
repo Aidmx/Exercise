@@ -35,34 +35,50 @@ int main(int arg, char* argv[])
 	//4.2 4.6 4.10 4.14 4.18 4.22 4.26 4.30 4.34,4.38 4.42 4.46 4.50
 	// cout<<Fib1(15)<<endl;
 	// cout<<Fib2(15)<<endl;
+	// BinarySearchTree<int> tree;
+	// for (int i = 0; i < 30; i++)
+	// {
+	// 	tree.insert( i);
+	// }
+
+	// std::cout<<"BST "<<std::endl;
+	// std::cout<<"Preorder"<<std::endl;
+	// tree.Preorder(tree.root);
+	// std::cout<<"Postorder" <<std::endl;
+	// tree.Postorder(tree.root);
+	// std::cout<<"Inorder"<<std::endl;
+	// tree.Inorder(tree.root);
+
+	// AvlTree<int> avl;
+	// for (int i = 0; i < 60; i++)
+	// {
+	// 	avl.insert( i);
+	// }
+
+	// std::cout<<"AVL "<<std::endl;
+	// std::cout<<"Preorder"<<std::endl;
+	// avl.Preorder(avl.root);
+	// std::cout<<"Postorder" <<std::endl;
+	// avl.Postorder(avl.root);
+	// std::cout<<"Inorder"<<std::endl;
+	// avl.Inorder(avl.root);
+
+	// int root_height = avl.PostorderCheckHeight(avl.root);
+	// std::cout<<"root height check= "<<root_height<<"  save= "<<avl.root->height<<std::endl;
+
+	// BinarySearchTree<int> tree;
+	// tree.makeRandomBSTree(10,13);
+	// std::cout<<"Inorder"<<std::endl;
+	// tree.Inorder(tree.root);
+	std::vector<int> sx;
+	int a[] = {15,7,3,5,4,11,9,25,19,20,23,21,24};
+	const int mid = 15; 
 	BinarySearchTree<int> tree;
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < 13; i++)
 	{
-		tree.insert( i);
+		tree.insert(a[i]);
 	}
 
-	std::cout<<"BST "<<std::endl;
-	std::cout<<"Preorder"<<std::endl;
-	tree.Preorder(tree.root);
-	std::cout<<"Postorder" <<std::endl;
-	tree.Postorder(tree.root);
-	std::cout<<"Inorder"<<std::endl;
-	tree.Inorder(tree.root);
-
-	AvlTree<int> avl;
-	for (int i = 0; i < 30; i++)
-	{
-		avl.insert( i);
-	}
-
-	std::cout<<"AVL "<<std::endl;
-	std::cout<<"Preorder"<<std::endl;
-	avl.Preorder(avl.root);
-	std::cout<<"Postorder" <<std::endl;
-	avl.Postorder(avl.root);
-	std::cout<<"Inorder"<<std::endl;
-	avl.Inorder(avl.root);
-
-
+	tree.InorderCoord(tree.root, 1,1,true);
 	return 0;
 }

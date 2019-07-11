@@ -1,5 +1,5 @@
-#ifndef __4_18_H
-#define __4_18_H
+#ifndef _4_18_H_
+#define _4_18_H_
 
 int Fib1(int pHeight)
 {

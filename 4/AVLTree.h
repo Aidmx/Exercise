@@ -1,5 +1,5 @@
-﻿#ifndef __AVL_TREE_H__
-#define __AVL_TREE_H__
+﻿#ifndef _AVL_TREE_H_
+#define _AVL_TREE_H_
 
 #include<iostream>
 
@@ -70,9 +70,9 @@ public:
         }
 
     } AvlNode;
-
+ 
     AvlNode *root;
-
+    
     void printNode(AvlNode *pNode) const
     {
         if (pNode == nullptr)
@@ -119,6 +119,7 @@ public:
         Inorder(pNode->right);
     }
 
+private:
     void insert(const Comparable &x, AvlNode *&t)
     {
         if (t == nullptr)
@@ -131,8 +132,8 @@ public:
         {
             insert(x, t->right);
         }
-        balance(t);
-        //相同则什么都不做 
+
+        balance(t); 
     }
     void insert(Comparable &&x, AvlNode *&t)
     {
@@ -148,7 +149,7 @@ public:
         {
             insert(std::move(x), t->right);
         }
-        //相同则什么都不做
+        
         balance(t);
     }
 
@@ -300,7 +301,7 @@ public:
         rotateWithRightChild(k3);
     }
 // 4_26
-    AvlNode *doubleRotateWithLeft(AvlNode *k3)
+    AvlNode *doubleLeftRotate(AvlNode *k3)
     {
         AvlNode *k1 = k3->left;
         AvlNode *k2 = k1->right;
@@ -314,7 +315,7 @@ public:
         return k2;
     }
 
-    AvlNode *doubleRotateWithRight(AvlNode *k1)
+    AvlNode *doubleRightRotate(AvlNode *k1)
     {
         AvlNode *k3 = k1->right;
         AvlNode *k2 = k3->left;
@@ -326,9 +327,10 @@ public:
         k3->height = std::max(height(k3->left), height(k3->right)) + 1;
         k2->height = std::max(height(k2->left), height(k2->right)) + 1;
         return k2;
-    }
+    } 
+// 4_26
 
-    void balance(AvlNode *t)
+    void balance(AvlNode*& t)
     {
         if (t == nullptr)
         {
@@ -339,33 +341,63 @@ public:
         {
             if (height(t->left->left) >= height(t->left->right))
             {
-                //左单旋
                 rotateWithLeftChild(t);
             }
             else
             {
-                //左双旋
-                doubleWithLeftChild(t);
+                doubleLeftRotate(t);
+                // doubleWithLeftChild(t);
             }
         }
         else if ((height(t->right)-height(t->left)) > ALLOW_IMBALANCE)
         {
             if (height(t->right->right) >= height(t->right->left))
             {
-                //右单旋 
                 rotateWithRightChild(t);
             }else
-            {
-                //右双旋 
-                doubleWithRightChild(t);
+            { 
+                doubleRightRotate(t);
+                // doubleWithRightChild(t);
             }
         }
         t->height =  std::max(height(t->left), height(t->right)) + 1;
     }
 
+public:
     //4_22
+    int PostorderCheckHeight(AvlNode *pNode) const
+    {
+        if (pNode == nullptr)
+        {
+            return height(pNode);
+        }
+        if ((pNode->left == nullptr) && (pNode->right == nullptr))
+        {
+            if (pNode->height != 0)
+            {
+                /* 叶子节点高度不是0 就是error*/
+                std::cout<<"should be height = 0; error height:"<<pNode->height<<std::endl;
+            }
+            return height(pNode);
+        }
+        //检查高度是否正确， 以及是否平衡
+        int hleft =  PostorderCheckHeight(pNode->left);
+        int hright =  PostorderCheckHeight(pNode->right);
+        int node_height = (std::max(hleft, hright) + 1);
+        if (pNode->height != node_height)
+        {
+            /* error */
+            std::cout<<"should be height = "<<node_height<<std::endl<<"; error height:"<<pNode->height<<std::endl;
+        }
+        if (((hleft - hright) > ALLOW_IMBALANCE) ||(hright - hleft) > ALLOW_IMBALANCE)
+        {
+            /* error */
+            std::cout<<"error:not be balance." <<std::endl;
+        }
+        return pNode->height;
+    }
     
-
+    //4_22
 };
 
 #endif
