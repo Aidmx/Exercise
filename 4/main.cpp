@@ -1,4 +1,4 @@
-﻿
+
 //add by allen
 //3.6 answer
 
@@ -7,6 +7,7 @@
 #include "4_18.h"
 #include "BinarySearchTree.h"
 #include "AVLTree.h"
+#include "4_50.h"
 
 using namespace std;
 
@@ -50,11 +51,12 @@ int main(int arg, char* argv[])
 	// tree.Inorder(tree.root);
 
 	// AvlTree<int> avl;
-	// for (int i = 0; i < 60; i++)
+	// for (int i = 0; i < 3; i++)
 	// {
 	// 	avl.insert( i);
 	// }
 
+	// avl.root->height = 5;
 	// std::cout<<"AVL "<<std::endl;
 	// std::cout<<"Preorder"<<std::endl;
 	// avl.Preorder(avl.root);
@@ -67,26 +69,25 @@ int main(int arg, char* argv[])
 	// std::cout<<"root height check= "<<root_height<<"  save= "<<avl.root->height<<std::endl;
 
 	// BinarySearchTree<int> tree;
-	// tree.makeRandomBSTree(10,13);
-	// std::cout<<"Inorder"<<std::endl;
-	// tree.Inorder(tree.root);
+	// tree.makeRandomBSTree(1,30);
+	// std::cout<<"level"<<std::endl;
+	// tree.LevelOrder(tree.root);
 	
-	int x[] = {15,7,3,5,4,11,9,25,19,20,23,21,24}; 
-	BinarySearchTree<int> a;
-	BinarySearchTree<int> b;
-	for (int i = 0; i < 13; i++)
-	{
-		a.insert(x[i]);
-		b.isomorphis_insert(x[i]);
-	}
-	if (BinarySearchTree<int>::isomorphis(a.root, b.root))
-	{
-		std::cout << "isomorphis is true" << std::endl;
-	}else
-	{
-		std::cout << "isomorphis is false"  << std::endl;
-	}
-	
+	// int x[] = {15,7,3,5,4,11,9,25,19,20,23,21,24}; 
+	// BinarySearchTree<int> a;
+	// BinarySearchTree<int> b;
+	// for (int i = 0; i < 13; i++)
+	// {
+	// 	a.insert(x[i]);
+	// 	b.isomorphis_insert(x[i]);
+	// }
+	// if (BinarySearchTree<int>::isomorphis(a.root, b.root))
+	// {
+	// 	std::cout << "isomorphis is true" << std::endl;
+	// }else
+	// {
+	// 	std::cout << "isomorphis is false"  << std::endl;
+	// }
 
 	return 0;
 }
