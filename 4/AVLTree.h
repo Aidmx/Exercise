@@ -387,7 +387,8 @@ public:
         if (pNode->height != node_height)
         {
             /* error */
-            std::cout<<"should be height = "<<node_height<<std::endl<<"; error height:"<<pNode->height<<std::endl;
+            std::cout<<"should be height = "<<node_height<<"; error height:"<<pNode->height<<std::endl;
+            return node_height;
         }
         if (((hleft - hright) > ALLOW_IMBALANCE) ||(hright - hleft) > ALLOW_IMBALANCE)
         {
