@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include <random>
+#include <queue>
  
 
 template <typename Comparable>
@@ -134,6 +135,34 @@ public:
         printNode(pNode);
         Inorder(pNode->right);
     }
+    //层序
+    void LevelOrder(BinaryNode *pNode) const
+    {
+        if (pNode == nullptr)
+        {
+            return;
+        }
+
+        std::queue<BinaryNode*> que;
+        que.push(pNode);
+        BinaryNode *currentNode = nullptr;
+
+        while (!que.empty())
+        {
+            currentNode = que.front();
+            printNode(currentNode);
+            que.pop();
+            if (currentNode->left != NULL)
+            {
+                que.push(currentNode->left);
+            }
+            if (currentNode->right != NULL)
+            {
+                que.push(currentNode->right);
+            }
+        }
+    }
+
     //4_38 
     //a  //b
     void InorderCoord(BinaryNode *pNode ,int x, int y, bool pleft)
