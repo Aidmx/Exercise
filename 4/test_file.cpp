@@ -1,7 +1,5 @@
 void load_cpp_file(const std::string &filepath)
 {
-    //按照行 load file
-
     std::ifstream file;
     file.open(filepath);
     std::string line;

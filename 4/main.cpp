@@ -1,4 +1,4 @@
-
+﻿
 //add by allen
 //3.6 answer
 
@@ -8,8 +8,10 @@
 #include "BinarySearchTree.h"
 #include "AVLTree.h"
 #include "4_50.h"
+#include "4_30.h"
 
 using namespace std;
+#define random(x) (rand()%x)
 
 int main(int arg, char* argv[])
 {
@@ -72,8 +74,8 @@ int main(int arg, char* argv[])
 	// tree.makeRandomBSTree(1,30);
 	// std::cout<<"level"<<std::endl;
 	// tree.LevelOrder(tree.root);
-	
-	// int x[] = {15,7,3,5,4,11,9,25,19,20,23,21,24}; 
+
+	// int x[] = {15,7,3,5,4,11,9,25,19,20,23,21,24};
 	// BinarySearchTree<int> a;
 	// BinarySearchTree<int> b;
 	// for (int i = 0; i < 13; i++)
@@ -88,6 +90,22 @@ int main(int arg, char* argv[])
 	// {
 	// 	std::cout << "isomorphis is false"  << std::endl;
 	// }
+	// load_cpp_file("D:/Projects/Exercise/4/test_file.cpp");
 
-	return 0;
+    SplayTree splayTree;
+	BinarySearchTree<int> BSTree;
+	AvlTree<int> AvlTree;
+	for (int i = 0; i < 30; i++)
+	{
+		int value =random(100); 
+		splayTree.InsertSplayTree(value);
+		BSTree.insert(value);
+		AvlTree.insert(value);
+	}
+	
+	cout<<"splay tree rotate times =" <<splayTree.SplayTimes()<<endl; 
+	cout<<"splay tree rotate times =" <<splayTree.SplayTimes()<<endl; 
+	cout<<"splay tree rotate times =" <<splayTree.SplayTimes()<<endl; 
+
+	return 0; 
 }
