@@ -381,75 +381,75 @@ void SplayTree::RotateSTPrint()
     RotateSTPrint(this->root, 0);
 }
 
-void Menu()
-{
-    int val, choice, newVal;
-    SplayTree mySplayTree;
-    while (true)
-    {
-        do
-        {
-            cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << endl;
-            cout << "       1.insert" << endl;
-            cout << "       2.del" << endl;
-            cout << "       3.change" << endl;
-            cout << "       4.find" << endl;
-            cout << "       5.show" << endl;
-            cout << "       6.back" << endl;
-            cout << "input ur option[ ]\b\b";
-            cin >> choice;
-        } while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6);
-        if (1 == choice)
-        {
-            cin >> val;
-            mySplayTree.InsertSplayTree(val);
-        }
-        else if (2 == choice)
-        {
-            cin >> val;
-            if (mySplayTree.DeleteSplayTree(val))
-                cout << "success!" << endl;
-            else
-                cout << "failed!" << endl;
-        }
-        else if (3 == choice)
-        {
-            cin >> val >> newVal;
-            if (mySplayTree.UpdateSplayTree(val, newVal))
-                cout << "success!" << endl;
-            else
-                cout << "failed!" << endl;
-        }
-        else if (4 == choice)
-        {
-            cin >> val;
-            if (NULL != mySplayTree.FindSplayTree(val))
-                cout << "find success!" << endl;
-            else
-                cout << "find failed!" << endl;
-        }
-        else if (5 == choice)
-        {
-            cout << endl
-                 << "*****************************" << endl;
-            cout << endl
-                 << "==========pre order==============" << endl;
-            mySplayTree.PreOrderSTPrint();
-            cout << endl
-                 << "==========In order================" << endl;
-            mySplayTree.InOrderSTPrint();
-            cout << endl
-                 << "==========Post order===============" << endl;
-            mySplayTree.PostOrderSTPrint();
-            cout << endl
-                 << "==========duichen+rotate===============" << endl;
-            mySplayTree.RotateSTPrint();
-            cout << endl
-                 << "*****************************" << endl;
-        }
-        else
-            return;
-    }
-}
+// void Menu()
+// {
+//     int val, choice, newVal;
+//     SplayTree mySplayTree;
+//     while (true)
+//     {
+//         do
+//         {
+//             cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" << endl;
+//             cout << "       1.insert" << endl;
+//             cout << "       2.del" << endl;
+//             cout << "       3.change" << endl;
+//             cout << "       4.find" << endl;
+//             cout << "       5.show" << endl;
+//             cout << "       6.back" << endl;
+//             cout << "input ur option[ ]\b\b";
+//             cin >> choice;
+//         } while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6);
+//         if (1 == choice)
+//         {
+//             cin >> val;
+//             mySplayTree.InsertSplayTree(val);
+//         }
+//         else if (2 == choice)
+//         {
+//             cin >> val;
+//             if (mySplayTree.DeleteSplayTree(val))
+//                 cout << "success!" << endl;
+//             else
+//                 cout << "failed!" << endl;
+//         }
+//         else if (3 == choice)
+//         {
+//             cin >> val >> newVal;
+//             if (mySplayTree.UpdateSplayTree(val, newVal))
+//                 cout << "success!" << endl;
+//             else
+//                 cout << "failed!" << endl;
+//         }
+//         else if (4 == choice)
+//         {
+//             cin >> val;
+//             if (NULL != mySplayTree.FindSplayTree(val))
+//                 cout << "find success!" << endl;
+//             else
+//                 cout << "find failed!" << endl;
+//         }
+//         else if (5 == choice)
+//         {
+//             cout << endl
+//                  << "*****************************" << endl;
+//             cout << endl
+//                  << "==========pre order==============" << endl;
+//             mySplayTree.PreOrderSTPrint();
+//             cout << endl
+//                  << "==========In order================" << endl;
+//             mySplayTree.InOrderSTPrint();
+//             cout << endl
+//                  << "==========Post order===============" << endl;
+//             mySplayTree.PostOrderSTPrint();
+//             cout << endl
+//                  << "==========duichen+rotate===============" << endl;
+//             mySplayTree.RotateSTPrint();
+//             cout << endl
+//                  << "*****************************" << endl;
+//         }
+//         else
+//             return;
+//     }
+// }
 
 #endif
