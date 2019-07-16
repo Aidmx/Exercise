@@ -11,18 +11,27 @@ template<typename Comparable>
 class LeftistHeap
 {
     LeftistHeap();
-    LeftistHeap(const LeftistHeap& rhs);
-    LeftistHeap(LeftistHeap&& rhs);
+    explicit LeftistHeap(const LeftistHeap& rhs);
+    explicit LeftistHeap(LeftistHeap&& rhs);
     
     ~LeftistHeap();
 
     LeftistHeap &operator=(const LeftistHeap &rhs);
     LeftistHeap &operator=(LeftistHeap &&rhs);
-    bool isEmpty() const { return currentSize <= 0; }
+    bool isEmpty() const;
     const Comparable &findMin() const;
     void deleteMin( Comparable & minltem );
     void makeEmpty();
-    void merge( LeftistHeap & rhs );
+    void merge( LeftistHeap & rhs )
+    {
+        if (this == &rhs)
+        {
+            return;
+        }
+        
+        root = merge(root, rhs.root);
+        rhs.root = nullptr;
+    }
 
 private:
     struct LeftistNode
@@ -40,11 +49,47 @@ private:
     };
 
     LeftistNode *root;
-    LeftistNode *merge(LeftistNode *hl, LeftistNode *h2);
-    LeftistNode *merge1(LeftistNode *hl, LeftistNode *h2);
+    LeftistNode *merge(LeftistNode *h1, LeftistNode *h2)
+    {
+            if (h1 == nullptr)
+            {
+                return h2;
+            }
+            if (h2 == nullptr)
+            {
+                return h1;
+            }
+
+            if (h1->element > h2->element)
+            {
+                 return merge1(h1, h2);
+            }else
+            {
+                 return merge1(h2, h1);
+            }
+    }
+
+    LeftistNode *merge1(LeftistNode *h1, LeftistNode *h2)
+    {
+        if ( h1 == nullptr)
+        {
+            h1->left = h2;
+        }else
+        {
+            h1->right = nerge(h1->right, h2);
+            if (h1->left->npl < h1->right->npl)
+            {
+               swapChildren(h1);
+            }
+            h1->npl = h1->right->npl + 1;
+        }
+        return h1;
+    }
+
     void swapChildren(LeftistNode *t);
     void reclaimMemory(LeftistNode *t);
     LeftistNode *clone(LeftistNode *t) const;
 };
+
 
 #endif
