@@ -41,8 +41,8 @@ private:
 
     LeftistNode *root;
     LeftistNode *merge(LeftistNode *hl, LeftistNode *h2);
-    LeftistNode *merge(LeftistNode *hl, LeftistNode *h2);
-    void swapchildren(LeftistNode *t);
+    LeftistNode *merge1(LeftistNode *hl, LeftistNode *h2);
+    void swapChildren(LeftistNode *t);
     void reclaimMemory(LeftistNode *t);
     LeftistNode *clone(LeftistNode *t) const;
 };
