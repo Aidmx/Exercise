@@ -26,6 +26,6 @@ int main(int arg, char *argv[])
 	bh.insert1(11);
 	bh.insert1(13);
 	bh.insert1(2);
-
+	bh.preorder(2);
 	return 0;
 }

@@ -4,7 +4,9 @@
 #define _BINARY_HEAP_H_
 
 #include <vector>
- 
+#include <iostream>
+
+static int time;
 class BinaryHeap
 {
 public:
@@ -88,8 +90,34 @@ public:
         array[1] = std::move(array[currentSize--]);
         percolateDown(1);
     }
-    void makeEmpty();
+    void makeEmpty()
+    {
 
+    }
+
+    //6_10 a   
+    void preorder(const int& x )
+    {
+        time = 0;
+        preorder(x , 1); 
+    }
+
+    void preorder(const int& x, int hole)
+    {
+        if (hole > currentSize)
+        {
+            return;
+        }
+
+        if (array[hole] < x)
+        {
+            std::cout << array[hole]<<" ,time = "<<++time<<std::endl;
+          
+            preorder(x, hole*2);
+            preorder(x, hole*2 + 1);
+        }
+    } 
+    //6_10 a  
 private:
     int currentSize;
     std::vector<int> array;
@@ -135,8 +163,7 @@ private:
             }
         } 
     }
-
-
+  
 };   
 
 #endif
