@@ -43,7 +43,7 @@ private:
 
         LeftistNode(const Comparable &theElement, LeftistNode *lt = NULL,
                     LeftistNode *rt = NULL, int np = 0)
-            : element(theElement), left(It), right(rt), npl(np)
+            : element(theElement), left(lt), right(rt), npl(np)
         {
         }
     };
