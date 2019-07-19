@@ -29,7 +29,7 @@ public:
 
     ~BinaryHeap()
     {
-
+        makeEmpty();
     }
 
     bool isEmpty() const {return currentSize <= 0;}
