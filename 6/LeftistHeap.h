@@ -105,7 +105,7 @@ private:
 
     LeftistNode *merge1(LeftistNode *h1, LeftistNode *h2)
     {
-        if ( h1 == nullptr)
+        if ( h1->left == nullptr)
         {
             h1->left = h2;
         }else
