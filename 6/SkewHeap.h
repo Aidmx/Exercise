@@ -73,7 +73,7 @@ public:
             return t1;
         }
 
-        // 合并x和y时，将x作为合并后的树的根；
+        // 合并t1和t2时，将t1作为合并后的树的根；
         // 这里的操作是保证: t1 < t2
         if (t1->element > t2->element)
         {
