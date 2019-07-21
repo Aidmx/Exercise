@@ -4,19 +4,21 @@
 #define _BINARY_HEAP_H_
 
 #include <vector>
+#include <iostream>
 
-template<typename Comparable>
+static int time;
 class BinaryHeap
 {
 public:
     /* data */
     explicit BinaryHeap(int capacity = 100)
+        : array(capacity),
+          currentSize{0}
     {
-
     }
-    explicit BinaryHeap(const std::vector<Comparable>& items)
-    :array(items.size() + 10),
-    current{items.size()}
+    explicit BinaryHeap(const std::vector<int>& items)
+            :array(items.size() + 10),
+            currentSize{(int)(items.size())}
     {
         for (int i = 0; i < items.size(); i++)
         {
@@ -27,16 +29,16 @@ public:
 
     ~BinaryHeap()
     {
-
+        makeEmpty();
     }
 
     bool isEmpty() const {return currentSize <= 0;}
-    const Comparable& findMin() const;
+    const int& findMin() const;
 
     /*
-    * 将项x插入，允许重复元 
+    * 将项x插入，允许重复元  上滤
     */
-    void insert(const Comparable& x)
+    void insert(const int& x)
     {
         if (currentSize == (array.size() -1 ))
         {
@@ -44,16 +46,30 @@ public:
         }
 
         int hole = ++currentSize;
-        Comparable copy = x;
+        int copy = x;
         array[0] = std::move(copy);
-        for (; x < arrau[hole /2 ]; hole /= 2)
+        for (; x < array[hole/2 ]; hole /= 2)
         {
             array[hole] = std::move(array[hole / 2]);
         }
         array[hole] = std::move(array[0]);
-        
     }
-    void insert( Comparable&& x);
+    
+    /*
+    * 将项x插入，允许重复元  上滤
+    */
+    void insert1(const int& x)
+    {
+        if (currentSize == (array.size() - 1))
+        {
+            array.resize(array.size() * 2);
+        }
+
+        int hole = ++currentSize; 
+        array[hole] = x;
+        percolateUp(hole);
+    }
+
     void deleteMin()
     {
         if (isEmpty())
@@ -64,7 +80,7 @@ public:
         percolateDown(1);
     }
 
-    void deleteMin(Comparable& minItem)
+    void deleteMin(int& minItem)
     {
         if (isEmpty())
         {
@@ -74,11 +90,37 @@ public:
         array[1] = std::move(array[currentSize--]);
         percolateDown(1);
     }
-    void makeEmpty();
+    void makeEmpty()
+    {
 
+    }
+
+    //6_10 a   
+    void preorder(const int& x )
+    {
+        time = 0;
+        preorder(x , 1); 
+    }
+
+    void preorder(const int& x, int hole)
+    {
+        if (hole > currentSize)
+        {
+            return;
+        }
+
+        if (array[hole] < x)
+        {
+            std::cout << array[hole]<<" ,time = "<<++time<<std::endl;
+          
+            preorder(x, hole*2);
+            preorder(x, hole*2 + 1);
+        }
+    } 
+    //6_10 a  
 private:
     int currentSize;
-    std::vector<Comparable> array;
+    std::vector<int> array;
     void buildHeap()
     {
         for (int i = currentSize / 2 ; i > 0; i--)
@@ -89,7 +131,7 @@ private:
     void percolateDown(int hole)
     {
         int child; 
-        Comparable tmp = std::move(array[hole]);
+        int tmp = std::move(array[hole]);
         for (; hole * 2 <= currentSize ; hole = child)
         {
             child = hole * 2;
@@ -108,6 +150,20 @@ private:
         }
         array[hole] = std::move(tmp);
     }
+
+    
+    void percolateUp(int hole)
+    {
+        for (; hole  > 1; hole/=2)
+        {
+            //如果array[hole]比父节点的优先级大，将其上浮
+            if (array[hole] < array[hole / 2])
+            {
+                std::swap(array[hole] ,array[hole / 2]);
+            }
+        } 
+    }
+  
 };   
 
 #endif
