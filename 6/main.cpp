@@ -37,8 +37,8 @@ int main(int arg, char *argv[])
 	lh.insert(10);
 	lh.insert(21);
 	lh.insert(14);
-	lh.insert(23);
 	lh.insert(17);
+	lh.insert(23);
 	lh.insert(26);
 
 	return 0;
