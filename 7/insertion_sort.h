@@ -171,4 +171,37 @@ void mergesort(std::vector<Comparable>& a)
     mergesort(a, tmp, 0 ,a.size() - 1);
 }
 
+
+//快排
+
+template<typename Comparable>
+void quicksort(std::vector<Comparable>& a)
+{
+    std::vector<Comparable> smaller;
+    std::vector<Comparable> same;
+    std::vector<Comparable> larger;
+
+    auto chosenItem = items[item.size() / 2];
+    for (auto& i : items)
+    {
+        if (i < chosenItem)
+        {
+           smaller.push_back(i);
+        }else if(chosenItem < i)
+        {
+           larger.push_back(i);
+        }else
+        {
+            same.push_back(i);
+        }
+        
+        quicksort(smaller);
+        quicksort(larger);
+        
+        std::move(begin(smaller), end(smaller), begin(items));
+        std::move(begin(same), end(same), begin(items) + smaller.size());
+        std::move(begin(larger), end(larger), end(items) - larger.size());
+    }  
+}
+
 #endif
