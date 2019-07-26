@@ -101,7 +101,7 @@ void percDown(std::vector<Comparable> a, int i, int n)
 }
 
 template<typename Comparable>
-void heapsort(std::vector<Comparable> a)
+void heapsort(std::vector<Comparable>& a)
 {
     for (int i = a.size()/2 - 1; i >= 0; i++)
     {
@@ -114,6 +114,22 @@ void heapsort(std::vector<Comparable> a)
     }
     
 }
+
+//4_14
+template<typename Comparable>
+void heapsort(std::vector<Comparable>& a, int low, int high)
+{
+    for (int i = high/2 - 1; i >= low; i++)
+    {
+        percDown(a, i , high - low);
+    }
+    for (int j = high; j > low; --j)
+    {
+        std::move(a[low], a[j]);
+        percDown(a, low , j);
+    } 
+}
+
 
 
 //归并
@@ -173,9 +189,9 @@ void mergesort(std::vector<Comparable>& a)
 
 
 //快排
-
+//递归
 template<typename Comparable>
-void quicksort(std::vector<Comparable>& a)
+void easyquicksort(std::vector<Comparable>& a)
 {
     std::vector<Comparable> smaller;
     std::vector<Comparable> same;
@@ -195,13 +211,86 @@ void quicksort(std::vector<Comparable>& a)
             same.push_back(i);
         }
         
-        quicksort(smaller);
-        quicksort(larger);
+        easyquicksort(smaller);
+        easyquicksort(larger);
         
         std::move(begin(smaller), end(smaller), begin(items));
         std::move(begin(same), end(same), begin(items) + smaller.size());
         std::move(begin(larger), end(larger), end(items) - larger.size());
     }  
+}
+
+
+template <typename Comparable>
+void quicksort(std::vector<Comparable> &a)
+{
+
+}
+
+
+
+template <typename Comparable>
+const Comparable& median3(std::vector<Comparable>& a, int left, int right)
+{
+    int center = (left +right) / 2;
+    if (a[center] < a [left])
+    {
+        std::swap(a[left], a[center]);
+    }
+       if (a[right] < a [left])
+    {
+        std::swap(a[left], a[right]);
+    }
+       if (a[right] < a [center])
+    {
+        std::swap(a[right], a[center]);
+    }
+    
+    std::swap(a[center], a[right -1]);
+    return a[right -1];
+}
+
+
+template <typename Comparable>
+void quicksort(std::vector<Comparable>& a, int left, int right)
+{
+
+    if (left + 10 <= right )
+    {
+        const Comparable& pivot = median3(a, left, right);
+        //分割
+        int i =left, j = right -1;
+        while (true)
+        {
+            while (a[++i] < pivot){}
+            while (pivot < a[--j]){}
+
+            if (i < j)
+            {
+                std::swap(a[i], a[--j]);
+            }
+            else
+            {
+                break;
+            }
+
+            std::swap(a[i], a[right - 1]);
+
+            quicksort(a, left, i - 1);
+            quicksort(a, i + 1, right);         
+        }
+    }else
+    {
+        insertionSort(a, left ,right);
+    }
+}
+
+
+
+template <typename Comparable>
+void quicksort(std::vector<Comparable> &a)
+{
+    quicksort(a, 0, a, size() - 1);
 }
 
 #endif
