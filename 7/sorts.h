@@ -221,13 +221,6 @@ void easyquicksort(std::vector<Comparable>& a)
 }
 
 
-template <typename Comparable>
-void quicksort(std::vector<Comparable> &a)
-{
-
-}
-
-
 
 template <typename Comparable>
 const Comparable& median3(std::vector<Comparable>& a, int left, int right)
@@ -248,6 +241,46 @@ const Comparable& median3(std::vector<Comparable>& a, int left, int right)
     
     std::swap(a[center], a[right -1]);
     return a[right -1];
+}
+
+
+template <typename Comparable>
+void quickselect(std::vector<Comparable> &a, int left, int right, int k)
+{
+    if (left + 10 <= right )
+    {
+        const Comparable &pivot = median3(a, left, right);
+        //分割
+        int i = left, j = right - 1;
+        while (true)
+        {
+            while (a[++i] < pivot){}
+            while (pivot < a[--j]){}
+
+            if (i < j)
+            {
+                std::swap(a[i], a[--j]);
+            }
+            else
+            {
+                break;
+            }
+
+            std::swap(a[i], a[right - 1]);
+
+            if (k <= i)
+            {
+                quickselect(a, left, i - 1, k);
+            }
+            else
+            {
+                quickselect(a, i + 1, right, k);
+            }
+        }
+    }else
+    {
+        insertionSort(a, left ,right);
+    }
 }
 
 
