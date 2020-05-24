@@ -12,16 +12,22 @@ on:
 
 jobs:
   build:
+    name:My Job
 
     runs-on: ubuntu-latest
 
     steps:
+    - name:Print agretting
+      env:
+        MY_VAR: Hi there! My name is
+        FIRST_NAME: Mona
+        MIDDLE_NAME: The
+        LAST_NAME: Octocat
+      run: |
+        echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
     - uses: actions/checkout@v2
     - name: configure
       run: ./configure
     - name: make
       run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+
