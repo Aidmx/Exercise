@@ -1,0 +1,23 @@
+7_30
+T(N) = O(N);
+
+
+7_34
+log N! ≈ N log N − N log e
+
+
+7_42 
+a. log (5!) = 7.
+b.
+a,b,c,d,e
+(a ,b)  ,(c,d) 
+然后 b,d
+得到a,b,d
+向a,b,d 插e
+向a,b,d,e插c
+
+
+7_46
+N^2
+7_54 
+需要，否则不能创建 vector<Pointer>
