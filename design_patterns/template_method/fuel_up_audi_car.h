@@ -13,7 +13,7 @@ public:
 
     virtual void OpenFuelFiller() override
     {
-        std::cout<<"Open "<<GetName()<<std::endl; 
+        std::cout<<"Open fuel filler of "<<GetName()<<std::endl; 
     }
 private:
     virtual std::string GetName()
