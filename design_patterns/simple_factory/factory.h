@@ -1,18 +1,18 @@
 
 #pragma once
-#include "car.h"
+#include "bike.h"
 
 class Factory
 {
 private:
     /* data */
 public:    
-    enum CAR_TYPE {
-       BENZ_CAR,  // 奔驰汽车
-       BMW_CAR,  // 宝马汽车
-       AUDI_CAR  // 奥迪汽车
+    enum BIKE_TYPE {
+       BENZ,  // 奔驰汽车
+       BMW,  // 宝马汽车
+       AUDI  // 奥迪汽车
     };
     Factory() {}
     ~Factory() {}
-    ICar* CreateCar(CAR_TYPE type);
+    IBike* CreatBike(BIKE_TYPE type);
 };

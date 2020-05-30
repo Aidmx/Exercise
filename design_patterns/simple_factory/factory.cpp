@@ -1,17 +1,17 @@
 
 #include "factory.h"
-#include "audi_car.h"
+#include "audi_bike.h"
 
-ICar* Factory::CreateCar(Factory::CAR_TYPE type)
+IBike* Factory::CreatBike(Factory::BIKE_TYPE type)
 {
-    ICar *pCar = nullptr;
+    IBike *pBike = nullptr;
     switch (type)
     {
-    case AUDI_CAR:
-        pCar = new AudiCar(); // 奥迪汽车
+    case AUDI:
+        pBike = new AudiBike(); // 奥迪汽车
         break;
     default:
         break;
     }
-    return pCar;
+    return pBike;
 }
