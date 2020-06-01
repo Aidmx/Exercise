@@ -9,6 +9,8 @@
 #include "simple_factory/factory.h"
 #include "factory_method/audi_factory.h"
 #include "abstract_factory/abstract_factory.h"
+#include "builder/airplane_director.h"
+#include "builder/boyin_builder.h"
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(p)  \
@@ -80,6 +82,16 @@ int main(int argc, char *argv[])
         SAFE_DELETE(car);
     }
     SAFE_DELETE(factory);
+
+    /* builder */
+    IAirPlaneBuilder *builder = new BoyinBuilder();
+    if (builder != nullptr)
+    {
+        AirplaneDirector director;
+        director.Create(builder);
+    }
+    SAFE_DELETE(builder);
+
     system("pause");
     return 0;
 }
